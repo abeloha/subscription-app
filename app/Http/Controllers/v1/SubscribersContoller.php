@@ -24,9 +24,15 @@ class SubscribersContoller extends Controller
             return $this->errorResponse($validator->errors()->first(), $validator->errors());
         }
 
-        $validated = $validator->validated();
+        $validated = $validator->safe()->except(['name']);
 
-        $data = Subscription::create($validated);
+        //to avoid sending same story multiply times, an email is subscribed once to a website
+        $data = Subscription::updateOrCreate(
+            $validated,
+            [
+                'name' => $request->name,
+            ]);
+
         return $this->successResponse('Record created', $data, 201);
     }
 }
