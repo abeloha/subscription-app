@@ -16,5 +16,11 @@ Installation:
 Queues:
 The app uses queue to run some services such as sending of email at the background. Configure your queue services properly. Here is laravel documentation for that: https://laravel.com/docs/8.x/queues
 
+Commands:
+You can email all subscribers to a post with the following command:
+php artisan mail:send {post_id}
+
+eg: php artisan mail:send 5 will send details of post with id 5 to all who subscribed to the posts website
+
 
 
